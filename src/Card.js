@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import './Card.css';
 
 class Card extends Component {
   render() {
     return (
-      <div>
+      <div className="Card">
         <img src={this.props.photo} alt={this.props.description}/>
       </div>
     )

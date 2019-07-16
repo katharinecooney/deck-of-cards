@@ -12,7 +12,6 @@ class Deck extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-
   handleClick(){
     axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1`)
       .then(response => {
@@ -35,8 +34,8 @@ class Deck extends Component {
     
     return (
       <div>
-        <h1>decks</h1>
-        <button onClick={this.handleClick}>Click me</button>
+        <h1>Card Dealer!</h1>
+        <button onClick={this.handleClick}>Get a Card!</button>
         {
           this.state.cards.map(card => 
             <Card photo={card.image} description={`${card.value} of ${card.suit}`}/>
