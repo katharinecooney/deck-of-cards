@@ -9,10 +9,10 @@ class Deck extends Component {
       cards: [],
       deckID: ''
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.getCard = this.getCard.bind(this);
   }
 
-  handleClick(){
+  getCard(){
     axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1`)
       .then(response => {
         this.setState({
@@ -31,16 +31,12 @@ class Deck extends Component {
    }
 
   render() {
-    
+    const cards = this.state.cards.map(card => <Card key={card.code} photo={card.image} description={`${card.value} of ${card.suit}`}/>)
     return (
       <div>
         <h1>Card Dealer!</h1>
-        <button onClick={this.handleClick}>Get a Card!</button>
-        {
-          this.state.cards.map(card => 
-            <Card photo={card.image} description={`${card.value} of ${card.suit}`}/>
-          )
-        }
+        <button onClick={this.getCard}>Get a Card!</button>
+        {cards}
       </div>
     )
   }
