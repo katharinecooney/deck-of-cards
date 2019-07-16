@@ -8,6 +8,17 @@ class Deck extends Component {
       cards: [],
       deckID: ''
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+
+  handleClick(){
+    axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1`)
+      .then(response => {
+        this.setState({
+          cards: [...this.state.cards, response.data.cards[0] ]
+        })
+      })
   }
 
   componentDidMount(){
@@ -23,6 +34,7 @@ class Deck extends Component {
     return (
       <div>
         <h1>decks</h1>
+        <button onClick={this.handleClick}>Click me</button>
       </div>
     )
   }
