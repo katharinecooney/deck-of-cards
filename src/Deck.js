@@ -8,18 +8,27 @@ class Deck extends Component {
     super(props);
     this.state = {
       cards: [],
-      deckID: ''
+      deckID: '',
+      cardsRemaining: 52
     }
     this.getCard = this.getCard.bind(this);
   }
 
-  getCard(){
-    axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1`)
-      .then(response => {
-        this.setState({
-          cards: [...this.state.cards, response.data.cards[0] ]
-        })
+  async getCard(){
+    try {
+      let response = await axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/?count=1`);
+      if(response.data.success !== true) {
+        throw new Error('No cards remaining')
+      }
+      console.log(response)
+      this.setState({
+        cards: [...this.state.cards, response.data.cards[0] ],
+        cardsRemaining: response.data.remaining
       })
+    } 
+    catch(err) {
+      alert(err)
+    }
   }
 
   componentDidMount(){
@@ -37,7 +46,7 @@ class Deck extends Component {
       <div className="Deck">
         <h1 className="Deck-title">Card Dealer!</h1>
         <h2 className="Deck-title subtitle">A Demo Built with React</h2>
-        <button onClick={this.getCard}>Get a Card!</button>
+        <button className="Deck-button" onClick={this.getCard}>Get a Card!</button>
         <div className='Deck Deck-area'>
           {cards}
         </div>
