@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Card from './Card';
+import './Deck.css'
 
 class Deck extends Component {
   constructor(props){
@@ -36,7 +37,10 @@ class Deck extends Component {
       <div>
         <h1>Card Dealer!</h1>
         <button onClick={this.getCard}>Get a Card!</button>
-        {cards}
+        <div className='Deck Deck-area'>
+          {cards}
+        </div>
+        
       </div>
     )
   }
